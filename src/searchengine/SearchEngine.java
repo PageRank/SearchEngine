@@ -2,9 +2,11 @@ package searchengine;
 
 public class SearchEngine {
     public static void main(String[] args) {
+        // Generate the file which describe the web graph
 	String filename = "Links.data";
         Links links = new Links(filename);
         links.generate();
+        // Compute the PageRank vector
 	PageRank pageRank;
 	if (args.length != 1) {
 	    return;
@@ -20,6 +22,7 @@ public class SearchEngine {
 	} else {
 	    return;
 	}
+        // Display the PageRank vector
 	System.out.println(pageRank.toString());
     }
 }
