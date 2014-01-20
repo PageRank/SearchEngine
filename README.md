@@ -23,7 +23,7 @@ To compile our project please follow these steps:
   - Download these .jar libraries and save them in the main folder:
     - [JBLAS 1.2.3](http://mikiobraun.github.io/jblas/jars/jblas-1.2.3.jar)
     - [JSOUP 1.7.3](http://jsoup.org/packages/jsoup-1.7.3.jar)
-    - [Commons Lang 3.2.1](http://mirrors.ircam.fr/pub/apache//commons/lang/source/commons-lang3-3.2.1-src.tar.gz)
+    - [Commons Lang 3.2.1](http://mirrors.ircam.fr/pub/apache//commons/lang/binaries/commons-lang3-3.2.1-bin.tar.gz)
   - Build the project with
   
   ```console
