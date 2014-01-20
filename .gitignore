@@ -9,6 +9,7 @@
 # Others #
 *~
 *.data
+*.zip
 build/
 lib/
 nbproject/
