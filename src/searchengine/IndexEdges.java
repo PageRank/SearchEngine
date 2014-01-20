@@ -7,7 +7,7 @@ import java.util.*;
 public class IndexEdges {
     // Instance variables
     public static File folder = new File("rm");
-    public static String searchresults = "AltaVistaSearchResults.in";
+   
     
     public static void indexEdges() throws IOException {
         HTable tab = new HTable();
@@ -20,12 +20,28 @@ public class IndexEdges {
         // Iterate through Hashtable keys Enumeration
         while (e.hasMoreElements()) {
             String keyaux = e.nextElement().toString();
-            System.out.println(keyaux + " with value " + tab.files.get(keyaux));
+           //System.out.println(keyaux + " with value " + tab.files.get(keyaux));
         }
         
         tab.makepointsToandindex(folder);
         
+        // print edges in file edges.out (solved printing problem)
         
+        //store edges in file edges.txt
+       FileWriter writer = new FileWriter("edges.out");
+       BufferedWriter out = new BufferedWriter(writer);
+       out.write(tab.pointsTo.size()+"\n");
+        e=tab.pointsTo.keys();
+       while(e.hasMoreElements()){
+           String keyaux=e.nextElement().toString();
+           ArrayList<String> aaux=tab.pointsTo.get(keyaux);
+           for(int i=0;i<aaux.size();i++)
+           {out.write(tab.files.get(keyaux)+" "+ tab.files.get(aaux.get(i))+"\n");}
+       }
+       out.close();
+       writer.close();
+       
+       
         // Store edges in file Links
 	DataOutputStream linksDataOutputStream = null;
         try {
@@ -57,10 +73,15 @@ public class IndexEdges {
 	    }
 	}
 
-        PrintWriter write = new PrintWriter("InvertedIndex.data","UTF-8");
-        e = tab.index.keys();
-        while (e.hasMoreElements())
-            write.println(e.nextElement().toString());
+        
+       // print indexed words in file invertedindex.out
+       writer=new FileWriter("invertedindex.out");
+        out=new BufferedWriter(writer);
+       e=tab.index.keys();
+       while(e.hasMoreElements())
+           
+           out.write(e.nextElement().toString()+"\n");
+       out.close();
         
         
         /*ArrayList<index> aux=tab.index.get("germania");

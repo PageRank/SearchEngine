@@ -13,7 +13,7 @@ public class SearchEngine {
         */
         // Generate the Links file and the inverted index
         String filename = "Links.data";
-        // IndexEdges.indexEdges();
+        IndexEdges.indexEdges();
         // Compute the PageRank vector
 	PageRank pageRank;
 	if (args.length != 1) {

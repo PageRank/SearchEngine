@@ -11,7 +11,6 @@ import org.jsoup.select.Elements;
 
 public class HTable {
     // Instance variables
-    ArrayList<String> listofwords;   //list of words we will put in the index
     Hashtable files;
     int cont;
     Hashtable<String, ArrayList<Index>> index;  //inverted index for the words
@@ -19,12 +18,6 @@ public class HTable {
     
     // Constructor
     public HTable()throws FileNotFoundException, IOException {
-        listofwords = new ArrayList<String>();
-        BufferedReader r = new BufferedReader(new FileReader("ListOfWords.data"));
-        String line;
-        while ((line = r.readLine()) != null) {
-            listofwords.add(line.toLowerCase());
-        }
         files = new Hashtable();
         cont = 0;
         index = new Hashtable<String, ArrayList<Index>>();
@@ -55,7 +48,7 @@ public class HTable {
                 AddFilesFromFolder(FileEntry);
             } else if (!FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
                 //System.out.println("Adding file " + FileEntry.getName() + " to hashtable with value "+(cont+1));
-                files.put(FileEntry.getName(), ++cont);
+                files.put(FileEntry.getName(), cont++);
             }
         }
     }
@@ -76,10 +69,8 @@ public class HTable {
                 Document doc = Jsoup.parse(input);
                 String text = doc.body().text().toLowerCase();
                 String[] words = text.split("\\s");
-                for (i = 0; i < words.length; i++) {
+                for (i = 0; i < words.length; i++) 
                     if (words[i].matches("[a-zA-Z]+") || words[i].matches("[0-9]+")) { 
-                        //if we only want to create index for words in file listofwords; uncomment next line to create index for all words
-                        //if(listofwords.contains(words[i]))
                         {
                             //for each word in the text
                             words[i] = words[i].toLowerCase().replaceAll("[.;,!?']", "");
@@ -105,7 +96,7 @@ public class HTable {
                         }
                         //else System.out.println(words[i]+" word not in document");
                     }
-                    System.out.println("Creating pointsTo table for file " + FileEntry.getName());
+                    //System.out.println("Creating pointsTo table for file " + FileEntry.getName());
                     // Create pointsTo hashtable for every document
                     Elements links = doc.select("a");
                     pointsTo.put(FileEntry.getName(), new ArrayList<String>());
@@ -127,7 +118,7 @@ public class HTable {
                 }
             }
         }
-    }
+    
 
     // Sort inverted index
     public void sortindex() {
