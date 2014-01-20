@@ -10,4 +10,5 @@
 *~
 *.data
 build/
+lib/
 nbproject/
