@@ -1,0 +1,11 @@
+# Java Files #
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+
+# Others #
+*~
+nbproject/
