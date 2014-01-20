@@ -9,7 +9,7 @@ public class PageRankAlgebraic implements PageRank {
     protected double[] pageRank;
     
     // Constructor
-    public PageRankAlgebraic(String linksFilename) {
+    public PageRankAlgebraic(String linksFilename, double dampingFactor) {
 	DataInputStream linksDataInputStream = null;
 	int numberOfNodes = 0;
 	DoubleMatrix matrix = null;
@@ -47,7 +47,6 @@ public class PageRankAlgebraic implements PageRank {
 		}
 	    }
 	    // Compute PageRank
-	    double dampingFactor = 0.85;
 	    matrix = matrix.mul(dampingFactor);
 	    matrix = DoubleMatrix.eye(numberOfNodes).sub(matrix);
 	    matrix = Solve.solve(matrix, DoubleMatrix.eye(numberOfNodes));
