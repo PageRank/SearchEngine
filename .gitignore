@@ -8,4 +8,6 @@
 
 # Others #
 *~
+*.data
+build/
 nbproject/
