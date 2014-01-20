@@ -10,17 +10,21 @@ import org.jsoup.select.Elements;
 
 
 public class HTable {
+    // Instance variables
     ArrayList<String> listofwords;   //list of words we will put in the index
     Hashtable files;
     int cont;
-    Hashtable<String,ArrayList<Index>> index;  //inverted index for the words
+    Hashtable<String, ArrayList<Index>> index;  //inverted index for the words
     Hashtable<String, ArrayList<String>> pointsTo; // list of links from the current article
-    public HTable()throws FileNotFoundException, IOException{                    //constructor
+    
+    // Constructor
+    public HTable()throws FileNotFoundException, IOException {
         listofwords = new ArrayList<String>();
-        BufferedReader r = new BufferedReader(new FileReader("listofwords"));
+        BufferedReader r = new BufferedReader(new FileReader("ListOfWords.data"));
         String line;
-        while((line = r.readLine()) != null)
-                listofwords.add(line.toLowerCase());
+        while ((line = r.readLine()) != null) {
+            listofwords.add(line.toLowerCase());
+        }
         files = new Hashtable();
         cont = 0;
         index = new Hashtable<String, ArrayList<Index>>();
@@ -36,21 +40,21 @@ public class HTable {
                 output.append(url.charAt(i));
                 i++;
             } else {
-                str = url.substring(i+1,i+3);
-                output.append((char)Integer.parseInt(str,16));
+                str = url.substring(i + 1, i + 3);
+                output.append((char)Integer.parseInt(str, 16));
                 i += 3;
-            }    
+            }
         }
         return output.toString();
     }
     
-    /*browses file directory and adds all files to a hashtable*/
+    // Browses file directory and adds all files to a hashtable
     public void AddFilesFromFolder(final File folder) throws FileNotFoundException {
         for (final File FileEntry : folder.listFiles()) {
             if (FileEntry.isDirectory()) {
                 AddFilesFromFolder(FileEntry);
-            } else if(!FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
-                //System.out.println("Adding file "+FileEntry.getName()+" to hashtable with value "+(cont+1));
+            } else if (!FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
+                //System.out.println("Adding file " + FileEntry.getName() + " to hashtable with value "+(cont+1));
                 files.put(FileEntry.getName(), ++cont);
             }
         }
@@ -79,7 +83,7 @@ public class HTable {
                         {
                             //for each word in the text
                             words[i] = words[i].toLowerCase().replaceAll("[.;,!?']", "");
-                            count = StringUtils.countMatches(text,words[i]);
+                            count = StringUtils.countMatches(text, words[i]);
                             //System.out.println("In file "+FileEntry.getName()+"the word "+words[i]+" appears "+count+" times");
                             if (FileEntry.getName().toLowerCase().contains(words[i])) {
                                 in_title = 1;/*System.out.println(words[i]+" appears in title");*/
@@ -103,7 +107,6 @@ public class HTable {
                     }
                     System.out.println("Creating pointsTo table for file " + FileEntry.getName());
                     // Create pointsTo hashtable for every document
-                    
                     Elements links = doc.select("a");
                     pointsTo.put(FileEntry.getName(), new ArrayList<String>());
                     for (Element link : links) {
@@ -111,11 +114,11 @@ public class HTable {
                         if (a.contains("../../../../articles/")) {
                             a = a.replaceAll("../../../../articles/./././","");
                             a = hextoascii(a);
-                            //System.out.println("Found link to "+a);
+                            //System.out.println("Found link to " + a);
                             if (files.containsKey(a)) {
-                                //System.out.println(a+" is in hashtable");  
+                                //System.out.println(a + " is in hashtable");  
                                 if (!pointsTo.get(FileEntry.getName()).contains(a) && !FileEntry.getName().equals(a)) {
-                                    //System.out.println("Adding "+a+" to pointsTo of file "+FileEntry.getName());
+                                    //System.out.println("Adding " + a + " to pointsTo of file " + FileEntry.getName());
                                     pointsTo.get(FileEntry.getName()).add(a);
                                 }
                             }
@@ -129,8 +132,8 @@ public class HTable {
     // Sort inverted index
     public void sortindex() {
         Enumeration e = index.keys();
-        //iterate through Hashtable keys Enumeration
-        while(e.hasMoreElements()) {
+        // Iterate through Hashtable keys Enumeration
+        while (e.hasMoreElements()) {
             String keyaux = e.nextElement().toString();
             ArrayList<Index> aux = index.get(keyaux);
             Collections.sort(aux, Collections.reverseOrder());

@@ -9,7 +9,7 @@ public class IndexEdges {
     public static File folder = new File("rm");
     public static String searchresults = "AltaVistaSearchResults.in";
     
-    public static void indexEdges(String[] args) throws IOException {
+    public static void indexEdges() throws IOException {
         HTable tab = new HTable();
         tab.AddFilesFromFolder(folder);
         
@@ -29,7 +29,7 @@ public class IndexEdges {
         // Store edges in file Links
 	DataOutputStream linksDataOutputStream = null;
         try {
-            String linksFilename = "Links";
+            String linksFilename = "Links.data";
             File linksFile = new File(linksFilename);
             FileOutputStream linksFileOutputStream = new FileOutputStream(linksFile);
             BufferedOutputStream linksBufferedOutputStream = new BufferedOutputStream(linksFileOutputStream);
@@ -57,7 +57,7 @@ public class IndexEdges {
 	    }
 	}
 
-        PrintWriter write = new PrintWriter("invertedindex.txt","UTF-8");
+        PrintWriter write = new PrintWriter("InvertedIndex.data","UTF-8");
         e = tab.index.keys();
         while (e.hasMoreElements())
             write.println(e.nextElement().toString());

@@ -1,11 +1,19 @@
 package searchengine;
 
+import java.io.*;
+
+
 public class SearchEngine {
-    public static void main(String[] args) {
-        // Generate the file which describe the web graph
+    public static void main(String[] args) throws IOException {
+        /*
+        // Generate the test file which describe a web graph
 	String filename = "Links.data";
         Links links = new Links(filename);
         links.generate();
+        */
+        // Generate the Links file and the inverted index
+        String filename = "Links.data";
+        // IndexEdges.indexEdges();
         // Compute the PageRank vector
 	PageRank pageRank;
 	if (args.length != 1) {
