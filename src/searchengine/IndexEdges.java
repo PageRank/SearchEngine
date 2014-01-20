@@ -84,17 +84,17 @@ public class IndexEdges {
        out.close();
         
         
-        /*ArrayList<index> aux=tab.index.get("germania");
-        for (int i=0;i<aux.size();i++) {
+        ArrayList<Index> aux=tab.index.get("genatsch");
+        /*for (int i=0;i<aux.size();i++) {
             System.out.println("In file "+aux.get(i).fileID+ " the word GERMANIA appears "+aux.get(i).numb_occurences+" times");
             if(aux.get(i).in_title==1) System.out.println("It also appears in the title");
         }
-        
+        */
         System.out.println("After index sorting:");
         tab.sortindex();    
-        aux=tab.index.get("germania");
+        aux=tab.index.get("genatsch");
         for (int i=0;i<aux.size();i++) {
-            System.out.println("In file "+aux.get(i).fileID+ " the word GERMANIA appears "+aux.get(i).numb_occurences+" times");
+            System.out.println("In file "+aux.get(i).fileID+ " the word Genatsch appears "+aux.get(i).numb_occurences+" times");
             if(aux.get(i).in_title==1) System.out.println("It also appears in the title");
         }
              
