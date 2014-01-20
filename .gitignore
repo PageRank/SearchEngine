@@ -8,7 +8,7 @@
 
 # Others #
 *~
-*.data
+*.out
 *.zip
 build/
 lib/

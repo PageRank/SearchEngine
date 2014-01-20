@@ -9,7 +9,7 @@ public class PageRankIterative implements PageRank {
     protected double[] pageRank;
     
     // Constructor
-    public PageRankIterative(String linksFilename) {
+    public PageRankIterative(String linksFilename, double dampingFactor) {
 	DataInputStream linksDataInputStream = null;
 	int numberOfNodes = 0;
 	Graph graph = null;
@@ -34,7 +34,6 @@ public class PageRankIterative implements PageRank {
 	    }
 	    // Compute PageRank
 	    int tMax = 50;
-	    double dampingFactor = 0.85;
 	    // Initialize the PageRank vector
 	    this.pageRank = new double[numberOfNodes];
 	    for (int i = 0; i < numberOfNodes; i++)
