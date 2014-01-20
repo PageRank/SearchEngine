@@ -14,3 +14,9 @@ build/
 lib/
 nbproject/
 rm/
+
+# LaTeX Files #
+*.aux
+*.log
+*.pdf
+*.gz
