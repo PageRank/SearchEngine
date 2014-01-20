@@ -45,7 +45,7 @@ public class IndexEdges {
         // Store edges in file Links
 	DataOutputStream linksDataOutputStream = null;
         try {
-            String linksFilename = "Links.data";
+            String linksFilename = "Links.out";
             File linksFile = new File(linksFilename);
             FileOutputStream linksFileOutputStream = new FileOutputStream(linksFile);
             BufferedOutputStream linksBufferedOutputStream = new BufferedOutputStream(linksFileOutputStream);
