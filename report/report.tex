@@ -36,7 +36,16 @@ Three methods have been selected to implement the PageRank algorithm:
 \item algebraic method
 \item power method
 \end{itemize}
-This section details each of this method.
+This section details each of this method. They are all three based on the same input, a set $P = p_1, p_2, ..., p_n$ of html pages, with some hyperlinks between pages (i.e. $p_i \rightarrow p_j$), which defines a webgraph $G = \left(V, E\right)$ such that:
+$$V = \{i \in N / p_i \in P\}$$
+and:
+$$E = \{\left(i, j\right) \in V \times V / p_i \rightarrow p_j\}$$
+To make notations convenient, the following concepts are useful:
+\begin{itemize}
+\item $M\left(v\right)$ denotes the set of vertices that link to $v$ in $G$
+\item $L\left(b\right)$ denotes the number of outbound edges for node $v$ in $G$
+\item $A$ denotes the adjacency matrix of $G$ (i.e. $A_G\left[i\right]\left[j\right] \in \{0, 1\}$ and $A_G\left[i\right]\left[j\right] = 1 \Leftrightarrow \left(i, j\right) \in E$)
+\end{itemize}
 
 \subsection{Iterative method}
 \IncMargin{1em}
@@ -58,7 +67,7 @@ $pr\left[i\right]\leftarrow\frac{1}{n}$\;
 \While{$|pr-pr'|\geq\epsilon$}{
 $pr' \leftarrow pr$\;
 \For{$i \leftarrow 1$ \KwTo $n$}{
-$pr\left[i\right]\leftarrow\frac{1-d}{N}+d\sum_{j\in M_G\left(i\right)}\frac{pr'[j]}{L_G\left(j\right)}$\;
+$pr\left[i\right]\leftarrow\frac{1-d}{N}+d\sum_{j\in M\left(i\right)}\frac{pr'[j]}{L\left(j\right)}$\;
 }
 }
 \emph{// Renormalization}\;
@@ -69,6 +78,12 @@ $pr\leftarrow\frac{pr}{|pr|}$\;
 \DecMargin{1em}
 
 \subsection{Algebraic method}
+Additional notations have been used to describe the algebraic method, for a given integer $n$:
+\begin{itemize}
+\item $I$ denotes the identity matrix of size $n$
+\item $O$ denotes the column vector of length $n$ containing only ones
+\end{itemize}
+
 \IncMargin{1em}
 \begin{algorithm}[H]
 \SetKwInOut{Input}{Input}
@@ -116,7 +131,7 @@ $pr\left[i\right]\leftarrow\frac{1}{n}$\;
 \While{$|pr-pr'|\geq\epsilon$}{
 $pr' \leftarrow pr$\;
 \For{$i \leftarrow 1$ \KwTo $n$}{
-$pr\left[i\right]\leftarrow\frac{1-d}{N}+d\sum_{j\in M_G\left(i\right)}\frac{pr'[j]}{L_G\left(j\right)}$\;
+$pr\left[i\right]\leftarrow\frac{1-d}{N}+d\sum_{j\in M\left(i\right)}\frac{pr'[j]}{L\left(j\right)}$\;
 }
 \emph{// Renormalization}\;
 $s \leftarrow 0$\;
