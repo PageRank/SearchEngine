@@ -7,10 +7,10 @@ import java.util.*;
 public class IndexEdges {
     // Instance variables
     public static File folder = new File("rm");
-   
+    HTable tab;
     
-    public static void indexEdges() throws IOException {
-        HTable tab = new HTable();
+    public  IndexEdges() throws IOException {
+        tab = new HTable();
         tab.AddFilesFromFolder(folder);
         
         // Print hashtable

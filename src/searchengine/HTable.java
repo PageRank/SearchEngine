@@ -97,7 +97,7 @@ public class HTable {
                         //else System.out.println(words[i]+" word not in document");
                     }
                     //System.out.println("Creating pointsTo table for file " + FileEntry.getName());
-                    // Create pointsTo hashtable for every document
+                    //Create pointsTo hashtable for every document
                     Elements links = doc.select("a");
                     pointsTo.put(FileEntry.getName(), new ArrayList<String>());
                     for (Element link : links) {
