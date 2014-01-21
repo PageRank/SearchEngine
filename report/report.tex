@@ -5,6 +5,7 @@
 \usepackage[lined,boxed,linesnumbered,commentsnumbered]{algorithm2e}
 \usepackage{amsmath}
 \usepackage{hyperref}
+\usepackage{graphicx}
 
 
 \begin{document}
@@ -14,7 +15,7 @@
 	\textsf{Report of the project \emph{PageRank}}
 }
 \author{Andreea Beica \and Baptiste Lefebvre}
-\date{21 januar 2014}
+\date{21 january 2014}
 
 \maketitle
 
@@ -86,7 +87,44 @@ The purpose of this project is to implement different versions of the PageRank a
 
 \section{Project architecture}
 
-Bla, bla, bla...
+In order to apply the PageRank formula to the task of word-based web search, we had to simulate crawling and indexing the Web. 
+
+Crawling the web proved to be a difficult task (see Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and resume to crawling and indexing these pages.
+\vspace{10pt}
+
+The architecture and algorithms used for indexing were inspired by the ones presented in \cite{1}:
+
+\begin{itemize}
+\item \textbf{Parsing}: in our file system, which contains the web pages, we parse each page, in order to construct the two structures indispensable to computing the PageRank: the \emph{inverted index} and the \emph{pointsTo} table - a table containing all the hyperlinks between pages (the PageRank formula is based on this graph-like vision of the web pages, in which a hyperlink from page A to page B is viewed as a "vote of trust" of sorts for page B)
+\item \textbf{The inverted index}: used for quick lookup when one makes a query, our inverted index retains, for every word, a list of documents in which it appears, each entry in the list containing different informations like the docID, the number of occurences of the word,whether it appears in the document's title or not (see Figure 1).
+
+\end{itemize}
+
+\begin{figure}[h]
+\includegraphics[width=0.8\textwidth]{index.png}
+\caption{Inverted index}
+\end{figure}
+
+At the end of the parsing phase, we create both the graph of hyperlinks which will be used as input for the PageRank formula, as well as the inverted index, which is used in the case of a query.
+
+\subsection{The IR score}
+
+The IR (integrated reasoning) score is determined by the emphasis and weighted position of the specific terms used in a document, then used to compute the \emph{actual relevance} of each page in order to provide pages that are relevant to the terms of a specific search. This \emph{'actual relevance'} is computed by multiplying the IR score of each page to its PageRank value, to give a divisive value for how important each page is (we use multiplication because using addition would result in pages that are unrelated to the search terms ending up with a higher ranking in the search results returned from the query).
+
+For now, the IR score we compute is a straightforward (and maybe simplistic) formula: if the search word appears in a document's title, its IR score is 2$*$n, else its IR score is simply n, where n denotes the number of occurences of the search word in the document.
+
+\subsection{Searching}
+
+For simplicity purposes, we limited our search (for the time being, at least), to \emph{single word queries}. The sketch of the algorithm in the case of a single word query (and assuming the PageRanks are computed for every page) is as follows:
+\begin{enumerate}
+\item  Look up the query word in the inverted index and retrieve the corresponding document list
+\item Based on the information contained in the inverted index, compute the IR score for each document 
+\item For each document, combine its IR score and its PageRank in order to give the document a final rank
+\item Sort documents and return first \emph{k} 
+\end{enumerate}
+
+
+
 
 
 \section{Algorithms}
