@@ -24,7 +24,7 @@
 
 The PageRank algorithm, alongside a family of Google related technologies, represent a unique approach to the task of information handling and data retrieval, their scope and possible applications extending far beyond the search box of Google.com.
 
-More specifically, PageRank is a method of assessing the importance of a web page based upon its relationship with to other pages. As presented in the Abstract of the original patent, it is :
+More specifically, PageRank is a method of assessing the importance of a web page based upon its relationship with other pages. As presented in the Abstract of the original patent, it is :
 
 \vspace{10pt}
 
@@ -33,7 +33,7 @@ More specifically, PageRank is a method of assessing the importance of a web pag
 \end{centering}
 \vspace{10pt}
 
-What makes PageRank's importance extend beyond the scope of a simple search engine, is that when applied to all of the web pages within the Google index and after analysing the output, it constitutes an accurate of user behavior probability, as well as offering a completely objective measure measure of a web page's importance, all of which is computed mathematically and without human interference. 
+What makes PageRank's importance extend beyond the scope of a simple search engine, is that when applied to all of the web pages within the Google index and after analysing the output, it constitutes an accurate description of user behavior probability, as well as offering a completely objective measure of a web page's importance, all of which is computed mathematically and without human interference. 
 
 In the words of its authors:
 
@@ -44,7 +44,7 @@ In the words of its authors:
 \end{centering}
 \vspace{10pt}
 
-When compared to already existing text-based search engines, which relied primarily on information contained within given page (such as titles with a high keyword density, search terms placed near the top of the document, or having the highest density of the search term) to determine its relevance to a search query - and so which could be easily manipulated and ultimately unreliable, the PageRank approach aimed to provide a vast improvement in the quality and accuracy of document retrieved by a search engine in response to a search  phrase query. This goal would be accomplished by:
+When compared to already existing text-based search engines, which relied primarily on information contained within the given page (such as titles with a high keyword density, search terms placed near the top of the document, or having the highest density of the search term) to determine its relevance to a search query - and so which could be easily manipulated and ultimately unreliable, the PageRank approach aimed to provide a vast improvement in the quality and accuracy of document retrieved by a search engine in response to a search  phrase query. This goal would be accomplished by:
 
 \begin{itemize}
 \item objectively evaluating the importance of web pages and assigning corresponding ranks
@@ -82,14 +82,14 @@ We break down the formula of PR(A), for clarification purposes:
 \item \textbf{(1-d)} = this ensures that the sum of all web pages' PageRank will be 1, by adding the amount lost by the damping factor back in ; thus, every web page will have at least that minimal value
 \end{itemize}
 
-The purpose of this project is to implement different versions of the PageRank and test it on a set of Wikipedia set of downloaded pages.
+The purpose of this project is to implement different versions of the PageRank and test it on a set of Wikipedia downloaded pages.
 
 
 \section{Project architecture}
 
 In order to apply the PageRank formula to the task of word-based web search, we had to simulate crawling and indexing the Web. 
 
-Crawling the web proved to be a difficult task (see Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and resume to crawling and indexing these pages.
+Crawling the web proved to be a difficult task (see Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and to crawling and indexing these pages.
 \vspace{10pt}
 
 The architecture and algorithms used for indexing were inspired by the ones presented in \cite{1}:
@@ -135,7 +135,7 @@ Three methods have been selected to implement the PageRank algorithm:
 \item algebraic method
 \item power method
 \end{itemize}
-This section details each of this method. They are all three based on the same input, a set $P = p_1, p_2, ..., p_n$ of HTML pages, with some hyperlinks between pages (i.e. $p_i \rightarrow p_j$), which defines a webgraph $G = \left(V, E\right)$ such that:
+This section details each of this methods. All three are based on the same input, a set $P = p_1, p_2, ..., p_n$ of HTML pages, with some hyperlinks between pages (i.e. $p_i \rightarrow p_j$), which defines a webgraph $G = \left(V, E\right)$ such that:
 $$V = \{i \in N / p_i \in P\}$$
 and:
 $$E = \{\left(i, j\right) \in V \times V / p_i \rightarrow p_j\}$$
@@ -145,10 +145,6 @@ To make notations convenient, the following concepts are useful:
 \item $L\left(b\right)$ denotes the number of outbound edges for node $v$ in $G$
 \item $A$ denotes the adjacency matrix of $G$ (i.e. $A_G\left[i\right]\left[j\right] \in \{0, 1\}$ and $A_G\left[i\right]\left[j\right] = 1 \Leftrightarrow \left(i, j\right) \in E$)
 \end{itemize}
-
-To calculate PageRank one must consider the following an essential equation:
-$$ PageRank \left( i \right) = \frac{1 - d}{n} + d \sum\limits_{j \in M \left( i \right)} \frac{PageRank \left( j \right)}{L \left( j \right)}$$
-where $d$ is the damping factor such that $d \in \left[ 0;1 \right] $. The first method iterates naively this equation on all the pages, many times, until convergence (note that convergence is not assume). With a little bit of linear algebra, one could find the equation verified by the PageRank vector. Essentially the problem of its calculation reduces to inverting a matrix and leads to the second method. Eventually with more advance linear algebra, \emph{Perron-Frobenius theorem}, one could find a more efficient algorithm with stands as the third method.
 
 \subsection{Iterative method}
 \IncMargin{1em}
@@ -181,6 +177,11 @@ $pr\leftarrow\frac{pr}{|pr|}$\;
 \DecMargin{1em}
 
 \subsection{Algebraic method}
+Additional notations have been used to describe the algebraic method, for a given integer $n$:
+\begin{itemize}
+\item $I$ denotes the identity matrix of size $n$
+\item $O$ denotes the column vector of length $n$ containing only ones
+\end{itemize}
 
 \IncMargin{1em}
 \begin{algorithm}[H]
@@ -206,12 +207,6 @@ $pr\leftarrow \left(dA-I\right)^{-1}\frac{1-d}{n}O$
 \caption{Algebraic method}\label{algebraic_method}
 \end{algorithm}
 \DecMargin{1em}
-
-Additional notations have been used to describe the algebraic method, for a given integer $n$:
-\begin{itemize}
-\item $I$ denotes the identity matrix of size $n$
-\item $O$ denotes the column vector of length $n$ containing only ones
-\end{itemize}
 
 
 \subsection{Power method}
@@ -253,7 +248,9 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 
 \section{Results}
 
-The project focuses on the effect of the damping factor for the PageRank algorithm. Tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison} summarize our results on a simple search of the word \emph{germania} over the Wikipedia.
+\subsection{Influence of the damping factor}
+
+See the tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison}.
 
 \begin{table}[H]
 \centering
@@ -336,12 +333,16 @@ Rank & Google Rank & Name \\ \hline
 \end{table}
 
 
+\subsection{The intentional surfer model}
+Bla, bla, bla...
+
+
 \section{Problems and solutions}
 
-The first main problem encounters with the implementation of a search engine is the data fetching. Initially the designed architecture contained a \emph{web crawler}, a software application that browse systematically the HTML pages over the Internet, however efficient crawling is hard.
+The first main problem encountered when dealing with the implementation of a search engine is the data fetching. Initially the designed architecture contained a \emph{web crawler}, a software application that browsed systematically the HTML pages over the Internet, however efficient crawling is hard.
 There are two main causes to this difficulty:
 \begin{itemize}
-\item Internet access gives rarely a high data rate for download
+\item Internet access rarely gives a high data rate for download
 \item Some websites have a policy which limits the number of downloaded pages per second
 \end{itemize}
 The solution was to consider copies of some set of HTML pages and work with the computer file system.
