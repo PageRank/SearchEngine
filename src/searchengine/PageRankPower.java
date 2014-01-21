@@ -33,20 +33,18 @@ public class PageRankPower implements PageRank {
 		// End of file reached
 	    }
 	    // Compute PageRank
-	    int tMax = 50;
+            double error;
+            double epsilon = 0.0000001;
 	    // Initialize the PageRank vector
 	    this.pageRank = new double[numberOfNodes];
 	    for (int i = 0; i < numberOfNodes; i++)
 		this.pageRank[i] = 1.0 / (double)numberOfNodes;
-	    /*
-	      Uncomment to get some details about the execution on the standard output
-	      System.out.println("t: 0");
-	      System.out.println(this.toString());
-	    */
-	    // Iterate tMax time
-	    for (int t = 0; t < tMax; t++) {
-		// Only two arrays of this.pageRank.length() in memory with this copy
-		double[] temp = this.pageRank.clone();
+	    int count = 0;
+            do {
+                count++;
+                // Only two arrays of this.pageRank.length() in memory with this copy
+                double[] temp = this.pageRank.clone();
+                
 		// For each page of the web graph
 		for (int i = 0; i < numberOfNodes; i++) {
 		    HashSet<Integer> setOfNodesThatLinkTo = graph.getNode(i).getSetOfNodesThatLinkTo();
@@ -64,12 +62,15 @@ public class PageRankPower implements PageRank {
 		    sum = sum + d;
 		for (int i = 0; i < this.pageRank.length; i++)
 		    this.pageRank[i] = this.pageRank[i] + (1.0 - sum) / (double)numberOfNodes;
-		/*
-		// Uncomment to get some details about the execution on the standard output
-		System.out.println("t: " + (t + 1));
-		System.out.println(this.toString());
-		*/
-	    }
+		
+                // Compute the difference between pageRank and temp
+                error = 0.0;
+                for (int i = 0; i < this.pageRank.length; i++) {
+                    double diff = this.pageRank[i] - temp[i];
+                    error = error + diff * diff;
+                }
+	    } while (error > epsilon);
+            System.out.println("Number of iterations for the PageRank algorithm: " + count);
 	} catch (FileNotFoundException exception) {
             // Missing Links file
 	} catch (IOException exception) {

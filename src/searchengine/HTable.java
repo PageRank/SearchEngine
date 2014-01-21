@@ -45,7 +45,8 @@ public class HTable {
     public void AddFilesFromFolder(final File folder) throws FileNotFoundException {
         for (final File FileEntry : folder.listFiles()) {
             if (FileEntry.isDirectory()) {
-                AddFilesFromFolder(FileEntry);
+                if (!FileEntry.getName().equals("skins") && !FileEntry.getName().equals("raw") && !FileEntry.getName().equals("misc"))
+                    AddFilesFromFolder(FileEntry);
             } else if (!FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
                 //System.out.println("Adding file " + FileEntry.getName() + " to hashtable with value "+(cont+1));
                 files.put(FileEntry.getName(), cont++);
@@ -62,7 +63,8 @@ public class HTable {
         int cont = 0;
         for (final File FileEntry : folder.listFiles()) {
             if (FileEntry.isDirectory()) {
-                makepointsToandindex(FileEntry);
+                if (!FileEntry.getName().equals("skins") && !FileEntry.getName().equals("raw") && !FileEntry.getName().equals("misc"))
+                    makepointsToandindex(FileEntry);
             } else if (FileEntry.isFile() && !FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
                 //create inverted index
                 String input = new Scanner(FileEntry).useDelimiter("\\A").next();

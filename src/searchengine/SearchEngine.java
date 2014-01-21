@@ -1,6 +1,7 @@
 package searchengine;
 
 import java.io.*;
+import java.text.*;
 import java.util.*;
 
 
@@ -48,14 +49,18 @@ public class SearchEngine {
             return;
         }
         
+        /*
         // Display the PageRank vector
         System.out.println(pageRank.toString());
+        */
         
         // Compute the IR vector
         InformationRetrieval informationRetrieval = new InformationRetrievalBasic(searchedWord, indexEdges.tab);
         
+        /*
         // Display the IR vector
         System.out.println(informationRetrieval.toString());
+        */
         
         // Compute the weight vector
         double[] pageRankVector = pageRank.getPageRank();
@@ -94,13 +99,16 @@ public class SearchEngine {
         System.out.println("Results:");
         System.out.println("\\begin{table}[h]");
         System.out.println("\\centering");
-        System.out.println("\\begin{tabular}{ | r | l | }");
+        System.out.println("\\begin{tabular}{ | c | c | c | c | l | }");
         System.out.println("\\hline");
+        System.out.println("Rank & IR Score & PR Score &  Score & Name \\\\ \\hline");
         for (int i = 0; i < resultVector.length; i++) {
-            String string = indexEdges.tab.getFilename(resultVector[i]);
+            int docID = resultVector[i];
+            String string = indexEdges.tab.getFilename(docID).replace(".html", "");
             String description = string.replace("_", "\\_");
             String url = "http://rm.wikipedia.org/wiki/" + string;
-            System.out.println((i + 1) + " & \\href{" + url + "}{" + description + "} \\\\ \\hline");
+            DecimalFormat df = new DecimalFormat("####.######");
+            System.out.println((i + 1) + " & " + df.format(informationRetrievalVector[docID]) + " & " + df.format(pageRankVector[docID]) + " & " + df.format(weightVector[i]) + " & \\href{" + url + "}{" + description + "} \\\\ \\hline");
         }
         System.out.println("\\end{tabular}");
         System.out.println("\\caption{TODO: complete}");
