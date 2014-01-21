@@ -20,7 +20,67 @@
 
 \section{Presentation}
 
-Bla, bla, bla...
+The PageRank algorithm, alongside a family of Google related technologies, represent a unique approach to the task of information handling and data retrieval, their scope and possible applications extending far beyond the search box of Google.com.
+
+More specifically, PageRank is a method of assessing the importance of a web page based upon its relationship with to other pages. As presented in the Abstract of the original patent, it is :
+
+\vspace{10pt}
+
+\begin{centering}
+\textbf{"A method [that] assigns importance ranks to nodes in a linked database, such as any database of documents containing citations, the world wide web or any other hypermedia database."}
+\end{centering}
+\vspace{10pt}
+
+What makes PageRank's importance extend beyond the scope of a simple search engine, is that when applied to all of the web pages within the Google index and after analysing the output, it constitutes an accurate of user behavior probability, as well as offering a completely objective measure measure of a web page's importance, all of which is computed mathematically and without human interference. 
+
+In the words of its authors:
+
+\vspace{10pt}
+
+\begin{centering}
+\textbf{“PageRank can be thought of as a model of user behavior. We assume there is a \emph{random surfer} who is given a web page at random and keeps clicking on links, never hitting \emph{back} but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank.”}
+\end{centering}
+\vspace{10pt}
+
+When compared to already existing text-based search engines, which relied primarily on information contained within given page (such as titles with a high keyword density, search terms placed near the top of the document, or having the highest density of the search term) to determine its relevance to a search query - and so which could be easily manipulated and ultimately unreliable, the PageRank approach aimed to provide a vast improvement in the quality and accuracy of document retrieved by a search engine in response to a search  phrase query. This goal would be accomplished by:
+
+\begin{itemize}
+\item objectively evaluating the importance of web pages and assigning corresponding ranks
+\item using the rank information of said web pages to help determine relevance and placement withing a Search Engine Result Page
+\end{itemize}
+
+The formal description of the PageRank formaula is as follows (as described by its authors):
+
+\vspace{10pt}
+
+
+\textbf{"We assume page A has pages T1...Tn which point to it (i.e., are citations).
+The parameter d is a damping factor which can be set between 0 and 1. We
+usually set d to 0.85.
+Also C(A) is defined as the number of links going out of page A. The
+PageRank of a page A is given as follows:}
+
+\vspace{10pt}
+
+\begin{centering}
+\textbf{PR(A) = (1-d) + d (PR(T1)/C(T1) + ... + PR(Tn)/C(Tn))}
+\end{centering}
+\vspace{10pt}
+
+\textbf{Note that the PageRanks form a probability distribution over web pages, so the sum of all web pages' PageRanks will be one."}
+
+\vspace{10pt}
+
+We break down the formula of PR(A), for clarification purposes:
+
+\begin{itemize}
+\item \textbf{PR(Ti)} = the PageRank of $i^{th}$ page pointing to page A
+\item \textbf{PR(Ti)/C(Ti)} = any linking web page divides the weight of its vote evenly amongst all of the votes that it gives
+\item \textbf{d} = every vote is added together to determine the PageRank value of page A; however, in order to prevent a \emph{combined strength} effect from over inflating PR(A), the final value is multiplied by a \emph{damping factor}, of usually .85
+\item \textbf{(1-d)} = this ensures that the sum of all web pages' PageRank will be 1, by adding the amount lost by the damping factor back in ; thus, every web page will have at least that minimal value
+\end{itemize}
+
+The purpose of this project is to implement different versions of the PageRank and test it on a set of Wikipedia set of downloaded pages.
 
 
 \section{Project architecture}
