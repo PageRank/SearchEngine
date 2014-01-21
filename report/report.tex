@@ -317,16 +317,16 @@ Rank & IR Score & PR Score &  Score & Name \\ \hline
 \begin{tabular}{ | c | c | l | }
 \hline
 Rank & Google Rank & Name \\ \hline
-1 & 0 & \href{http://rm.wikipedia.org/wiki/Spezial:Categories}{Spezial: Categories} \\ \hline
-2 & 0 & \href{http://rm.wikipedia.org/wiki/Germania}{Germania} \\ \hline
-3 & 0 & \href{http://rm.wikipedia.org/wiki/Svizra}{Svizra} \\ \hline
-4 & 0 & \href{http://rm.wikipedia.org/wiki/Categoria:Stadis_da_l'Europa}{Categoria: Stadis da l'Europa} \\ \hline
-5 & 0 & \href{http://rm.wikipedia.org/wiki/Europa}{Europa} \\ \hline
-6 & 0 & \href{http://rm.wikipedia.org/wiki/Russia}{Russia} \\ \hline
-7 & 0 & \href{http://rm.wikipedia.org/wiki/Sinsheim}{Sinsheim} \\ \hline
-8 & 0 & \href{http://rm.wikipedia.org/wiki/Atletica}{Atletica} \\ \hline
-9 & 0 & \href{http://rm.wikipedia.org/wiki/Chantun_Argovia}{Chantun Argovia} \\ \hline
-10 & 0 & \href{http://rm.wikipedia.org/wiki/Organisaziun_da_las_Naziuns_unidas}{Organisaziun da las Naziuns unidas} \\ \hline
+1 & - & \href{http://rm.wikipedia.org/wiki/Spezial:Categories}{Spezial: Categories} \\ \hline
+2 & 1 & \href{http://rm.wikipedia.org/wiki/Germania}{Germania} \\ \hline
+3 & 40 & \href{http://rm.wikipedia.org/wiki/Svizra}{Svizra} \\ \hline
+4 & 150 & \href{http://rm.wikipedia.org/wiki/Categoria:Stadis_da_l'Europa}{Categoria: Stadis da l'Europa} \\ \hline
+5 & 110 & \href{http://rm.wikipedia.org/wiki/Europa}{Europa} \\ \hline
+6 & 138 & \href{http://rm.wikipedia.org/wiki/Russia}{Russia} \\ \hline
+7 & 200+ & \href{http://rm.wikipedia.org/wiki/Sinsheim}{Sinsheim} \\ \hline
+8 & 200+& \href{http://rm.wikipedia.org/wiki/Atletica}{Atletica} \\ \hline
+9 & 200+ & \href{http://rm.wikipedia.org/wiki/Chantun_Argovia}{Chantun Argovia} \\ \hline
+10 & 115 & \href{http://rm.wikipedia.org/wiki/Organisaziun_da_las_Naziuns_unidas}{Organisaziun da las Naziuns unidas} \\ \hline
 \end{tabular}
 \caption{Comparison with Google results (restrict to the domain \emph{rm.wikipedia.org}) for \emph{germania} with a damping factor of \emph{0.85}}
 \label{table_comparison}
@@ -366,7 +366,9 @@ The conclusion is the same as the previous problem.
 
 Eventually a little search engine which works on a set of HTML pages using the PageRank algorithm has been implemented with success. Despite some inherent difficulties about memory, the project has succeeded to apprehend the effect of the damping factor. It also shows  the sensitivity of a search engine depending on its implementation.
 
-As the results show, even when using a simplistic approach to compute the IR score of pages and combining it with the PageRank, as well as a set of test pages relatively obscure and with a sensibly less relevant hyperlink structure than the WWW (articles are short and links seem to converge towards the "Category" pages, thus making them more relevant than they should normally be), the system returns satisfactory results. 
+As the results show,  when using a simplistic approach to compute the IR score of pages and combining it with the PageRank, as well as a set of test pages relatively obscure and with a sensibly less relevant hyperlink structure than the WWW (articles are short and links seem to converge towards the "Category" pages, thus making them more relevant than they should normally be), the system returns satisfactory results. 
+
+When comparing our results to the Google engine one, the difference is noteworthy. This might be due to the fact that since the most recent downloadable version of the database is several years old; since then, many articles have been added, thus changing the structure.
 
 Further work could include more complicated and refined computations of IR and a better database  in order to analyse improvement in the results.
 
