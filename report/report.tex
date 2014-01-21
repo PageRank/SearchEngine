@@ -250,19 +250,19 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 
 \subsection{Influence of the damping factor}
 
-See the tables \ref{table_d=0.0}, \ref{table_d=0.85} and \ref{table_d=0.999999}.
+See the tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison}.
 
 \begin{table}[H]
 \centering
 \begin{tabular}{ | c | c | c | c | l | }
 \hline
 Rank & IR Score & PR Score &  Score & Name \\ \hline
-1 & 8 & 0.000168 & 0.00134 & \href{http://rm.wikipedia.org/wiki/Category~(Stadi)_Germania_d640}{Category: (Stadi) Germania} \\ \hline
+1 & 8 & 0.000168 & 0.00134 & \href{http://rm.wikipedia.org/wiki/Categoria:(Stadi)_Germania}{Categoria: (Stadi) Germania} \\ \hline
 2 & 8 & 0.000168 & 0.00134 & \href{http://rm.wikipedia.org/wiki/Germania}{Germania} \\ \hline
 3 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Rhaeti}{Rhaeti} \\ \hline
-4 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Category:Lieu_en_Germania}{Category: Lieu en Germania} \\ \hline
+4 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Categoria:Lieu_en_Germania}{Categoria: Lieu en Germania} \\ \hline
 5 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Adolf_Hitler}{Adolf Hitler} \\ \hline
-6 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Category:Germania}{Category: Germania} \\ \hline
+6 & 6 & 0.000168 & 0.001005 & \href{http://rm.wikipedia.org/wiki/Categoria:Germania}{Categoria: Germania} \\ \hline
 7 & 3 & 0.000168 & 0.000503 & \href{http://rm.wikipedia.org/wiki/Renania-Palatinat}{Renania-Palatinat} \\ \hline
 8 & 3 & 0.000168 & 0.000503 & \href{http://rm.wikipedia.org/wiki/Lai_da_Constanza}{Lai da Constanza} \\ \hline
 9 & 3 & 0.000168 & 0.000503 & \href{http://rm.wikipedia.org/wiki/Hamburg}{Hamburg} \\ \hline
@@ -310,6 +310,26 @@ Rank & IR Score & PR Score &  Score & Name \\ \hline
 \end{tabular}
 \caption{Results of our search engine for \emph{germania} with a damping factor of \emph{0.999999} and the \emph{power method}}
 \label{table_d=0.999999}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | c | c | l | }
+\hline
+Rank & Google Rank & Name \\ \hline
+1 & 0 & \href{http://rm.wikipedia.org/wiki/Spezial:Categories}{Spezial: Categories} \\ \hline
+2 & 0 & \href{http://rm.wikipedia.org/wiki/Germania}{Germania} \\ \hline
+3 & 0 & \href{http://rm.wikipedia.org/wiki/Svizra}{Svizra} \\ \hline
+4 & 0 & \href{http://rm.wikipedia.org/wiki/Categoria:Stadis_da_l'Europa}{Categoria: Stadis da l'Europa} \\ \hline
+5 & 0 & \href{http://rm.wikipedia.org/wiki/Europa}{Europa} \\ \hline
+6 & 0 & \href{http://rm.wikipedia.org/wiki/Russia}{Russia} \\ \hline
+7 & 0 & \href{http://rm.wikipedia.org/wiki/Sinsheim}{Sinsheim} \\ \hline
+8 & 0 & \href{http://rm.wikipedia.org/wiki/Atletica}{Atletica} \\ \hline
+9 & 0 & \href{http://rm.wikipedia.org/wiki/Chantun_Argovia}{Chantun Argovia} \\ \hline
+10 & 0 & \href{http://rm.wikipedia.org/wiki/Organisaziun_da_las_Naziuns_unidas}{Organisaziun da las Naziuns unidas} \\ \hline
+\end{tabular}
+\caption{Comparison with Google results (restrict to the domain \emph{rm.wikipedia.org}) for \emph{germania} with a damping factor of \emph{0.85}}
+\label{table_comparison}
 \end{table}
 
 
