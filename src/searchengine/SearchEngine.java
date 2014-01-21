@@ -88,11 +88,22 @@ public class SearchEngine {
                 }
             }
         }
-        int[] resultVector = Arrays.copyOfRange(indexVector, 0, k - 1);
+        int[] resultVector = Arrays.copyOfRange(indexVector, 0, k);
         
         // Display the result vector
         System.out.println("Results:");
-        for (int docID: resultVector)
-            System.out.println(docID);
+        System.out.println("\\begin{table}[h]");
+        System.out.println("\\centering");
+        System.out.println("\\begin{tabular}{ | r | l | }");
+        System.out.println("\\hline");
+        for (int i = 0; i < resultVector.length; i++) {
+            String string = indexEdges.tab.getFilename(resultVector[i]);
+            String description = string.replace("_", "\\_");
+            String url = "http://rm.wikipedia.org/wiki/" + string;
+            System.out.println((i + 1) + " & \\href{" + url + "}{" + description + "} \\\\ \\hline");
+        }
+        System.out.println("\\end{tabular}");
+        System.out.println("\\caption{TODO: complete}");
+        System.out.println("\\end{table}");
     }
 }

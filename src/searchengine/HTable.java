@@ -11,7 +11,7 @@ import org.jsoup.select.Elements;
 
 public class HTable {
     // Instance variables
-    Hashtable files;
+    Hashtable<String, Integer> files;
     int cont;
     Hashtable<String, ArrayList<Index>> index;  //inverted index for the words
     Hashtable<String, ArrayList<String>> pointsTo; // list of links from the current article
@@ -131,5 +131,18 @@ public class HTable {
             index.remove(keyaux);
             index.put(keyaux, aux);
         }
+    }
+    
+    // Find the document name for a given DocID
+    public String getFilename(int i) {
+        String string = "";
+        boolean b = true;
+        Enumeration<String> enumeration= this.files.keys();
+        while (enumeration.hasMoreElements() && b) {
+            string = enumeration.nextElement();
+            Integer j = this.files.get(string);
+            b = (i != j);
+        }
+        return string;
     }
 }
