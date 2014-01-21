@@ -212,6 +212,24 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 \subsection{Influence of the damping factor}
 Bla, bla, bla...
 
+\begin{table}[h]
+\centering
+\begin{tabular}{ | r | l | }
+\hline
+1 & test\\ \hline
+2 & test\\ \hline
+3 & test\\ \hline
+4 & test\\ \hline
+5 & test\\ \hline
+6 & test\\ \hline
+7 & test\\ \hline
+8 & test\\ \hline
+9 & test\\ \hline
+10 & test \\ \hline
+\end{tabular}
+\caption{Test}
+\end{table}
+
 \subsection{The intentional surfer model}
 Bla, bla, bla...
 
@@ -231,18 +249,19 @@ An other problem with the data was the size of the set of HTML pages. Two limita
 \item Memory size gives an upper bound for the amount of data
 \item PageRank prompts to collect as many data as possible since the algorithm takes advantage of the hyperlink structure (i.e. a restrict set of pages may correspond to some ignored links)
 \end{itemize}
-There is no solution to avoid these limitations without a financial contribution. The data have been choose under these constraints.
+There is no solution to avoid these limitations without a financial contribution. Hence data have been choose under these constraints.
 
-
-
-\section{Non realised elements}
-
-Bla, bla, bla...
+The memory problem affects both the input data and the internal data. The difficulty recurs with the choice of the data structures, for example the algebraic method with the use of the adjacency matrix must reach this limit rapidly. Furthermore the element which uses the highest amount of memory is the index, two constraints appear:
+\begin{itemize}
+\item Memory size again
+\item Search engine prompts to keep as many details as possible for each page about the words it contains in order to give relevant results. The quality of the information retrieval depends on the amount of details kept.
+\end{itemize}
+The conclusion is the same as the previous problem.
 
 
 \section{Conclusion}
 
-Bla, bla, bla...
+Eventually a little search engine which works on a set of HTML pages using the PageRank algorithm have been implemented with success. Despite some inherent difficulties about memory, the project has succeed to apprehend the effect of the damping factor. It also shows up the sensibility of a search engine depending from its implementation.
 
 
 \end{document}
