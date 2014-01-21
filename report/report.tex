@@ -146,6 +146,10 @@ To make notations convenient, the following concepts are useful:
 \item $A$ denotes the adjacency matrix of $G$ (i.e. $A_G\left[i\right]\left[j\right] \in \{0, 1\}$ and $A_G\left[i\right]\left[j\right] = 1 \Leftrightarrow \left(i, j\right) \in E$)
 \end{itemize}
 
+To calculate PageRank one must consider the following an essential equation:
+$$ PageRank \left( i \right) = \frac{1 - d}{n} + d \sum\limits_{j \in M \left( i \right)} \frac{PageRank \left( j \right)}{L \left( j \right)}$$
+where $d$ is the damping factor such that $d \in \left[ 0;1 \right] $. The first method iterates naively this equation on all the pages, many times, until convergence (note that convergence is not assume). With a little bit of linear algebra, one could find the equation verified by the PageRank vector. Essentially the problem of its calculation reduces to inverting a matrix and leads to the second method. Eventually with more advance linear algebra, \emph{Perron-Frobenius theorem}, one could find a more efficient algorithm with stands as the third method.
+
 \subsection{Iterative method}
 \IncMargin{1em}
 \begin{algorithm}[H]
@@ -177,11 +181,6 @@ $pr\leftarrow\frac{pr}{|pr|}$\;
 \DecMargin{1em}
 
 \subsection{Algebraic method}
-Additional notations have been used to describe the algebraic method, for a given integer $n$:
-\begin{itemize}
-\item $I$ denotes the identity matrix of size $n$
-\item $O$ denotes the column vector of length $n$ containing only ones
-\end{itemize}
 
 \IncMargin{1em}
 \begin{algorithm}[H]
@@ -207,6 +206,12 @@ $pr\leftarrow \left(dA-I\right)^{-1}\frac{1-d}{n}O$
 \caption{Algebraic method}\label{algebraic_method}
 \end{algorithm}
 \DecMargin{1em}
+
+Additional notations have been used to describe the algebraic method, for a given integer $n$:
+\begin{itemize}
+\item $I$ denotes the identity matrix of size $n$
+\item $O$ denotes the column vector of length $n$ containing only ones
+\end{itemize}
 
 
 \subsection{Power method}
@@ -248,9 +253,7 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 
 \section{Results}
 
-\subsection{Influence of the damping factor}
-
-See the tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison}.
+The project focuses on the effect of the damping factor for the PageRank algorithm. Tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison} summarize our results on a simple search of the word \emph{germania} over the Wikipedia.
 
 \begin{table}[H]
 \centering
@@ -331,10 +334,6 @@ Rank & Google Rank & Name \\ \hline
 \caption{Comparison with Google results (restrict to the domain \emph{rm.wikipedia.org}) for \emph{germania} with a damping factor of \emph{0.85}}
 \label{table_comparison}
 \end{table}
-
-
-\subsection{The intentional surfer model}
-Bla, bla, bla...
 
 
 \section{Problems and solutions}
