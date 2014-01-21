@@ -81,7 +81,7 @@ public class SearchEngine {
             indexVector[i] = i;
         }
         for (int j = 0; j < k; j++) {
-            for (int i = indexVector.length - 1; i >= j; i--) {
+            for (int i = indexVector.length - 2; i >= j; i--) {
                 if (weightVector[i] < weightVector[i + 1]) {
                     double weightTemp = weightVector[i];
                     weightVector[i] = weightVector[i + 1];
@@ -95,6 +95,8 @@ public class SearchEngine {
         int[] resultVector = Arrays.copyOfRange(indexVector, 0, k - 1);
         
         // Display the result vector
-        System.out.println(resultVector);
+        System.out.println("Results:");
+        for (int docID: resultVector)
+            System.out.println(docID);
     }
 }
