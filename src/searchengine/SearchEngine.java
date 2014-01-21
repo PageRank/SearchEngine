@@ -1,6 +1,7 @@
 package searchengine;
 
 import java.io.*;
+import java.util.*;
 
 
 public class SearchEngine {
@@ -56,7 +57,7 @@ public class SearchEngine {
         // Display the IR vector
         System.out.println(informationRetrieval.toString());
         
-        // Compute the ranking vector
+        // Compute the weight vector
         double[] pageRankVector = pageRank.getPageRank();
         ////////////////////////////////////////////////////////////////////////
         // TODO: add the apropriate arguments for the constructor //////////////
@@ -68,9 +69,32 @@ public class SearchEngine {
         if (pageRankVector.length != informationRetrievalVector.length)
             throw new Exception();
         
-        double[] rankVector = new double[pageRankVector.length];
-        for (int i = 0; i < rankVector.length; i++) {
-            rankVector[i] = pageRankVector[i] * informationRetrievalVector[i];
+        double[] weightVector = new double[pageRankVector.length];
+        for (int i = 0; i < weightVector.length; i++) {
+            weightVector[i] = pageRankVector[i] * informationRetrievalVector[i];
         }
+        
+        // Find the k highest weights
+        int k = 10;
+        int[] indexVector = new int[weightVector.length];
+        for (int i = 0; i < indexVector.length; i++) {
+            indexVector[i] = i;
+        }
+        for (int j = 0; j < k; j++) {
+            for (int i = indexVector.length - 1; i >= j; i--) {
+                if (weightVector[i] < weightVector[i + 1]) {
+                    double weightTemp = weightVector[i];
+                    weightVector[i] = weightVector[i + 1];
+                    weightVector[i + 1] = weightTemp;
+                    int indexTemp = indexVector[i];
+                    indexVector[i] = indexVector[i + 1];
+                    indexVector[i + 1] = indexTemp;
+                }
+            }
+        }
+        int[] resultVector = Arrays.copyOfRange(indexVector, 0, k - 1);
+        
+        // Display the result vector
+        System.out.println(resultVector);
     }
 }
