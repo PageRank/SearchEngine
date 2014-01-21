@@ -36,7 +36,7 @@ Three methods have been selected to implement the PageRank algorithm:
 \item algebraic method
 \item power method
 \end{itemize}
-This section details each of this method. They are all three based on the same input, a set $P = p_1, p_2, ..., p_n$ of html pages, with some hyperlinks between pages (i.e. $p_i \rightarrow p_j$), which defines a webgraph $G = \left(V, E\right)$ such that:
+This section details each of this method. They are all three based on the same input, a set $P = p_1, p_2, ..., p_n$ of HTML pages, with some hyperlinks between pages (i.e. $p_i \rightarrow p_j$), which defines a webgraph $G = \left(V, E\right)$ such that:
 $$V = \{i \in N / p_i \in P\}$$
 and:
 $$E = \{\left(i, j\right) \in V \times V / p_i \rightarrow p_j\}$$
@@ -149,12 +149,30 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 
 \section{Results}
 
+\subsection{Influence of the damping factor}
+Bla, bla, bla...
+
+\subsection{The intentional surfer model}
 Bla, bla, bla...
 
 
 \section{Problems and solutions}
 
-Bla, bla, bla...
+The first main problem encounters with the implementation of a search engine is the data fetching. Initially the designed architecture contained a \emph{web crawler}, a software application that browse systematically the HTML pages over the Internet, however efficient crawling is hard.
+There are two main causes to this difficulty:
+\begin{itemize}
+\item Internet access gives rarely a high data rate for download
+\item Some websites have a policy which limits the number of downloaded pages per second
+\end{itemize}
+The solution was to consider copies of some set of HTML pages and work with the computer file system.
+
+An other problem with the data was the size of the set of HTML pages. Two limitations were encountered:
+\begin{itemize}
+\item Memory size gives an upper bound for the amount of data
+\item PageRank leads to collect as many data as possible since the algorithm takes advantage of the hyperlink structure (i.e. a restrict set of pages may correspond to some ignored links)
+\end{itemize}
+There is no solution to avoid these limitations without a financial contribution. The data have been choose under these constraints.
+
 
 
 \section{Non realised elements}
