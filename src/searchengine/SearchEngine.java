@@ -14,7 +14,7 @@ public class SearchEngine {
         */
         // Generate the Links file and the inverted index
         String filename = "Links.out";
-        IndexEdges var= new IndexEdges();
+        IndexEdges indexEdges = new IndexEdges();
         
         // Check the number of input arguments
 	if (args.length != 3)
@@ -52,18 +52,14 @@ public class SearchEngine {
         System.out.println(pageRank.toString());
         
         // Compute the IR vector
-        InformationRetrieval informationRetrieval = new InformationRetrievalBasic(searchedWord,var.tab);
+        InformationRetrieval informationRetrieval = new InformationRetrievalBasic(searchedWord, indexEdges.tab);
         
         // Display the IR vector
         System.out.println(informationRetrieval.toString());
         
         // Compute the weight vector
         double[] pageRankVector = pageRank.getPageRank();
-        ////////////////////////////////////////////////////////////////////////
-        // TODO: add the apropriate arguments for the constructor //////////////
         double[] informationRetrievalVector = informationRetrieval.getInformationRetrieval();
-        ////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////////////////////////////////////////
         
         // Check the length of these two vectors
         if (pageRankVector.length != informationRetrievalVector.length)
