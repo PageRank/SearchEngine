@@ -106,7 +106,7 @@ public class SearchEngine {
             int docID = resultVector[i];
             String string = indexEdges.tab.getFilename(docID).replace(".html", "");
             String description = string.replace("_", "\\_");
-            String url = "http://rm.wikipedia.org/wiki/" + string;
+            String url = "http://af.wikipedia.org/wiki/" + string;
             DecimalFormat df = new DecimalFormat("####.######");
             System.out.println((i + 1) + " & " + df.format(informationRetrievalVector[docID]) + " & " + df.format(pageRankVector[docID]) + " & " + df.format(weightVector[i]) + " & \\href{" + url + "}{" + description + "} \\\\ \\hline");
         }

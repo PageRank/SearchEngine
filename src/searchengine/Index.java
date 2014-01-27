@@ -14,6 +14,7 @@ public class Index implements Comparable<Index> {
         this.fileID = fileID;
         this.in_title = in_title;
         this.numb_occurences = numb_occurences;
+        //add criteria like: does it appear in the url? is it linked from other pages using the keyword? where does it appear in the text?
     }
     
     @Override

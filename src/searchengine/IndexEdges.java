@@ -6,7 +6,7 @@ import java.util.*;
 
 public class IndexEdges {
     // Instance variables
-    public static File folder = new File("rm");
+    public static File folder = new File("articles");
     HTable tab;
     
     public  IndexEdges() throws IOException {
@@ -82,22 +82,22 @@ public class IndexEdges {
            out.write(e.nextElement().toString() + "\n");
         }
         out.close();
-        
-        ArrayList<Index> aux = tab.index.get("genatsch");
+        /*
+        ArrayList<Index> aux = tab.index.get("duitsland");
         /*for (int i=0;i<aux.size();i++) {
             System.out.println("In file "+aux.get(i).fileID+ " the word GERMANIA appears "+aux.get(i).numb_occurences+" times");
             if(aux.get(i).in_title==1) System.out.println("It also appears in the title");
         }
         */
-        System.out.println("After index sorting:");
+        /*System.out.println("After index sorting:");
         tab.sortindex();    
-        aux = tab.index.get("genatsch");
+        aux = tab.index.get("duitsland");
         for (int i = 0; i < aux.size(); i++) {
-            System.out.println("In file " + aux.get(i).fileID + " the word Genatsch appears " + aux.get(i).numb_occurences + " times");
+            System.out.println("In file " + aux.get(i).fileID + " the word Duitsland appears " + aux.get(i).numb_occurences + " times");
             if (aux.get(i).in_title == 1)
                 System.out.println("It also appears in the title");
         }
-             
+           */  
         /*
         ArrayList<String> aux1=tab.pointsTo.get("Germania.html");
         System.out.println("File GERMANIA points to :");

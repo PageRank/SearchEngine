@@ -15,13 +15,21 @@ public class HTable {
     int cont;
     Hashtable<String, ArrayList<Index>> index;  //inverted index for the words
     Hashtable<String, ArrayList<String>> pointsTo; // list of links from the current article
-    
+    ArrayList<String> functionwords;
     // Constructor
     public HTable()throws FileNotFoundException, IOException {
         files = new Hashtable();
         cont = 0;
         index = new Hashtable<String, ArrayList<Index>>();
         pointsTo = new Hashtable<String, ArrayList<String>>();
+        functionwords= new ArrayList<String>();
+        BufferedReader br = new BufferedReader(new FileReader("functionwords"));
+        String line;
+        while ((line = br.readLine()) != null) 
+        
+          functionwords.add(line);  
+        
+        br.close();
     }
     
     public String hextoascii(String url) {
@@ -47,7 +55,7 @@ public class HTable {
             if (FileEntry.isDirectory()) {
                 if (!FileEntry.getName().equals("skins") && !FileEntry.getName().equals("raw") && !FileEntry.getName().equals("misc"))
                     AddFilesFromFolder(FileEntry);
-            } else if (!FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
+            } else if (FileEntry.isFile()&& !FileEntry.getName().contains("Beeld")&& !FileEntry.getName().contains("Kategorie")&& !FileEntry.getName().contains("Gebruikerbespreking") && !FileEntry.getName().contains("Sjabloon") && !FileEntry.getName().contains("Gebruiker") && !FileEntry.getName().contains("Wikipedia")) {
                 //System.out.println("Adding file " + FileEntry.getName() + " to hashtable with value "+(cont+1));
                 files.put(FileEntry.getName(), cont++);
             }
@@ -65,14 +73,14 @@ public class HTable {
             if (FileEntry.isDirectory()) {
                 if (!FileEntry.getName().equals("skins") && !FileEntry.getName().equals("raw") && !FileEntry.getName().equals("misc"))
                     makepointsToandindex(FileEntry);
-            } else if (FileEntry.isFile() && !FileEntry.getName().contains("User") && !FileEntry.getName().contains("Template") && !FileEntry.getName().contains("Talk") && !FileEntry.getName().contains("Wikipedia")) {
+            } else if (FileEntry.isFile()&& !FileEntry.getName().contains("Beeld")&& !FileEntry.getName().contains("Kategorie")&& !FileEntry.getName().contains("Gebruikerbespreking") && !FileEntry.getName().contains("Sjabloon") && !FileEntry.getName().contains("Gebruiker") && !FileEntry.getName().contains("Wikipedia")) {
                 //create inverted index
                 String input = new Scanner(FileEntry).useDelimiter("\\A").next();
                 Document doc = Jsoup.parse(input);
                 String text = doc.body().text().toLowerCase();
                 String[] words = text.split("\\s");
                 for (i = 0; i < words.length; i++) 
-                    if (words[i].matches("[a-zA-Z]+") || words[i].matches("[0-9]+")) { 
+                    if ((words[i].matches("[a-zA-Z]+") || words[i].matches("[0-9]+")) && !functionwords.contains(words[i])) { 
                         {
                             //for each word in the text
                             words[i] = words[i].toLowerCase().replaceAll("[.;,!?']", "");
@@ -83,6 +91,7 @@ public class HTable {
                             } else {
                                 in_title = 0;
                             }
+                            
                             Index aux = new Index((Integer)files.get(FileEntry.getName()),in_title,count);
                             if (index.containsKey(words[i])) {
                                 if (!aux.in(index.get(words[i]))) {
