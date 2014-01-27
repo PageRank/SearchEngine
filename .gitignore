@@ -18,5 +18,8 @@ rm/
 # LaTeX Files #
 *.aux
 *.log
+*.nav
 *.pdf
+*.snm
+*.toc
 *.gz
