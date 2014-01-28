@@ -84,6 +84,19 @@
 \begin{frame}
   \frametitle{Equation}
   $$ PageRank \left( i \right) = \frac{1 - d}{n} + d \sum\limits_{j \in M \left( i \right)} \frac{PageRank \left( j \right)}{L \left( j \right)} $$
+  \newline
+  \begin{itemize}
+    \item $P$ denotes the set of HTML pages
+    \item $\rightarrow$ denotes the "point to" relation
+    \item $ G = \left( V, E \right)$ denotes the webgraph
+      \begin{itemize}
+        \item $V = \{i \in \left\lbrace 1, ..., n \right\rbrace / p_i \in P\}$
+        \item $E = \{\left(i, j\right) \in V \times V / p_i \rightarrow p_j\}$
+      \end{itemize}
+    \item $M\left(v\right)$ denotes the set of vertices that link to $v$ in $G$
+    \item $L\left(b\right)$ denotes the number of outbound edges for node $v$ in $G$
+    \item $d$ denotes the damping factor
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
