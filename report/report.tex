@@ -24,7 +24,7 @@
 
 \section{Presentation}
 
-The PageRank algorithm, alongside a family of Google related technologies, represent a unique approach to the task of information handling and data retrieval, their scope and possible applications extending far beyond the search box of Google.com.
+The PageRank algorithm\cite{Brin98, Page98}, alongside a family of Google related technologies, represent a unique approach to the task of information handling and data retrieval, their scope and possible applications extending far beyond the search box of Google.com.
 
 More specifically, PageRank is a method of assessing the importance of a web page based upon its relationship with other pages. As presented in the Abstract of the original patent, it is :
 
@@ -35,14 +35,14 @@ More specifically, PageRank is a method of assessing the importance of a web pag
 \end{centering}
 \vspace{10pt}
 
-What makes PageRank's importance extend beyond the scope of a simple search engine, is that when applied to all of the web pages within the Google index and after analysing the output, it constitutes an accurate description of user behavior probability, as well as offering a completely objective measure of a web page's importance, all of which is computed mathematically and without human interference. 
+What makes PageRank's importance extend beyond the scope of a simple search engine, is that when applied to all of the web pages within the Google index and after analysing the output, it constitutes an accurate description of user behaviour probability, as well as offering a completely objective measure of a web page's importance, all of which is computed mathematically and without human interference. 
 
 In the words of its authors:
 
 \vspace{10pt}
 
 \begin{centering}
-\textbf{"PageRank can be thought of as a model of user behavior. We assume there is a \emph{random surfer} who is given a web page at random and keeps clicking on links, never hitting \emph{back} but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank."}
+\textbf{"PageRank can be thought of as a model of user behaviour. We assume there is a \emph{random surfer} who is given a web page at random and keeps clicking on links, never hitting \emph{back} but eventually gets bored and starts on another random page. The probability that the random surfer visits a page is its PageRank."}
 \end{centering}
 \vspace{10pt}
 
@@ -50,10 +50,10 @@ When compared to already existing text-based search engines, which relied primar
 
 \begin{itemize}
 \item objectively evaluating the importance of web pages and assigning corresponding ranks
-\item using the rank information of said web pages to help determine relevance and placement withing a Search Engine Result Page
+\item using the rank information of said web pages to help determine relevance and placement within a Search Engine Result Page
 \end{itemize}
 
-The formal description of the PageRank formaula is as follows (as described by its authors):
+The formal description of the PageRank formula is as follows (as described by its authors):
 
 \vspace{10pt}
 
@@ -93,20 +93,21 @@ The purpose of this project is to implement different versions of the PageRank a
 
 In order to apply the PageRank formula to the task of word-based web search, we had to simulate crawling and indexing the Web. 
 
-Crawling the web proved to be a difficult task (see \cite{Cho98} and Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and to crawling and indexing these pages.
+Crawling the web proved to be a difficult task (see \cite{Cho98} and Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table \ref{table_d=0.85} contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and to crawling and indexing these pages.
 \vspace{10pt}
 
 The architecture and algorithms used for indexing were inspired by the ones presented in \cite{Brin98}:
 
 \begin{itemize}
-\item \textbf{Parsing}: in our file system, which contains the web pages, we parse each page, in order to construct the two structures indispensable to computing the PageRank: the \emph{inverted index} and the \emph{pointsTo} table - a table containing all the hyperlinks between pages (the PageRank formula is based on this graph-like vision of the web pages, in which a hyperlink from page A to page B is viewed as a "vote of trust" of sorts for page B)
-\item \textbf{The inverted index}: used for quick lookup when one makes a query, our inverted index retains, for every word, a list of documents in which it appears, each entry in the list containing different informations like the docID, the number of occurences of the word,whether it appears in the document's title or not (see Figure 1).
-
+  \item \textbf{Parsing}: in our file system, which contains the web pages, we parse each page, in order to construct the two structures indispensable to computing the PageRank: the \emph{inverted index} and the \emph{pointsTo} table - a table containing all the hyperlinks between pages (the PageRank formula is based on this graph-like vision of the web pages, in which a hyperlink from page A to page B is viewed as a "vote of trust" of sorts for page B) (see \cite{Witten94})
+  \item \textbf{The inverted index}: used for quick lookup when one makes a query, our inverted index retains, for every word, a list of documents in which it appears, each entry in the list containing different informations like the docID, the number of occurrences of the word,whether it appears in the document's title or not (see Figure \ref{figure_inverted_index} and \cite{Witten94})
 \end{itemize}
 
 \begin{figure}[h]
-\includegraphics[width=0.8\textwidth]{index.png}
-\caption{Inverted index}
+  \centering
+  \includegraphics[width=0.8\textwidth]{index.png}
+  \caption{Inverted index}
+  \label{figure_inverted_index}
 \end{figure}
 
 At the end of the parsing phase, we create both the graph of hyperlinks which will be used as input for the PageRank formula, as well as the inverted index, which is used in the case of a query.
@@ -151,7 +152,7 @@ To make notations convenient, the following concepts are useful:
 
 To calculate PageRank one must consider the following an essential equation:
 $$ PageRank \left( i \right) = \frac{1 - d}{n} + d \sum\limits_{j \in M \left( i \right)} \frac{PageRank \left( j \right)}{L \left( j \right)}$$
-where $d$ is the damping factor such that $d \in \left[ 0;1 \right] $. The first method iterates naively this equation on all the pages, many times, until convergence (note that convergence is not assume). With a little bit of linear algebra, one could find the equation verified by the PageRank vector. Essentially the problem of its calculation reduces to inverting a matrix and leads to the second method. Eventually with more advance linear algebra, \emph{Perron-Frobenius theorem}, one could find a more efficient algorithm with stands as the third method.
+where $d$ is the damping factor such that $d \in \left[ 0;1 \right] $. The first method iterates naively this equation on all the pages, many times, until convergence (note that convergence is not assume). With a little bit of linear algebra, one could find the equation verified by the PageRank vector. Essentially the problem of its calculation reduces to inverting a matrix and leads to the second method. Eventually with more advance linear algebra, \emph{Perron-Frobenius theorem}, one could find a more efficient algorithm with stands as the third method. Reading \cite{Berkhin05} and \cite{Bianchini05} provide significant assistance for the implementation. For more efficient computing, one could find an exhaustive list of possible enhancement in \cite{Haveliwala99}.
 
 
 \subsection{Iterative method}
@@ -260,7 +261,7 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 
 \section{Results}
 
-The project focuses on the effect of the damping factor for the PageRank algorithm. Tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison} summarize our results on a simple search of the word \emph{germania} over the Wikipedia.
+The project focuses on the effect of the damping factor for the PageRank algorithm. Tables \ref{table_d=0.0}, \ref{table_d=0.85}, \ref{table_d=0.999999} and \ref{table_comparison} summarize our results of a simple search of the word \emph{germania} over the Wikipedia. We also consider a larger dataset: \emph{af.wikipedia.org} and give in table \ref{table_larger} the results for the word \emph{duitsland} (i.e. \emph{germania}) in this dataset.
 
 \begin{table}[H]
 \centering
@@ -340,6 +341,25 @@ Rank & Google Rank & Name \\ \hline
 \end{tabular}
 \caption{Comparison with Google results (restrict to the domain \emph{rm.wikipedia.org}) for \emph{germania} with a damping factor of \emph{0.85}}
 \label{table_comparison}
+\end{table}
+
+\begin{table}
+  \begin{tabular}{ | c | c | c | c | l | }
+    \hline
+    Rank & IR Score & PR Score &  Score & Name \\ \hline
+    1 & 198 & 0,002858 & 0,56581 & \href{http://af.wikipedia.org/wiki/Duitsland}{Duitsland} \\ \hline
+    2 & 19 & 0,003674 & 0,0698 & \href{http://af.wikipedia.org/wiki/Frankryk}{Frankryk} \\ \hline
+    3 & 46 & 0,000316 & 0,014535 & \href{http://af.wikipedia.org/wiki/Duitse_Demokratiese_Republiek}{Duitse Demokratiese Repu...} \\ \hline
+    4 & 21 & 0,000468 & 0,009829 & \href{http://af.wikipedia.org/wiki/Berlyn}{Berlyn} \\ \hline
+    5 & 6 & 0,001097 & 0,006584 & \href{http://af.wikipedia.org/wiki/België}{Belgi\"{e}} \\ \hline
+    6 & 26 & 0,000201 & 0,00523 & \href{http://af.wikipedia.org/wiki/Frankfurt_am_Main}{Frankfurt am Main} \\ \hline
+    7 & 5 & 0,001024 & 0,00512 & \href{http://af.wikipedia.org/wiki/Duits}{Duits} \\ \hline
+    8 & 8 & 0,000632 & 0,00506 & \href{http://af.wikipedia.org/wiki/Denemarke}{Denemarke} \\ \hline
+    9 & 3 & 0,001148 & 0,003444 & \href{http://af.wikipedia.org/wiki/Frans}{Frans} \\ \hline
+    10 & 2 & 0,001702 & 0,003405 & \href{http://af.wikipedia.org/wiki/Afrikaans}{Afrikaans} \\ \hline
+  \end{tabular}
+  \caption{Results of our search engine for \emph{duitsland} with a damping factor of \emph{0.85} and the \emph{power method}}
+  \label{table_larger}
 \end{table}
 
 
