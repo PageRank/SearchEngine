@@ -20,6 +20,8 @@
 \maketitle
 
 
+% Presentation %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Presentation}
 
 The PageRank algorithm, alongside a family of Google related technologies, represent a unique approach to the task of information handling and data retrieval, their scope and possible applications extending far beyond the search box of Google.com.
@@ -85,14 +87,16 @@ We break down the formula of PR(A), for clarification purposes:
 The purpose of this project is to implement different versions of the PageRank and test it on a set of Wikipedia downloaded pages.
 
 
+% Project architecture %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Project architecture}
 
 In order to apply the PageRank formula to the task of word-based web search, we had to simulate crawling and indexing the Web. 
 
-Crawling the web proved to be a difficult task (see Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and to crawling and indexing these pages.
+Crawling the web proved to be a difficult task (see \cite{Cho98} and Section 5), so we resumed to downloading static HTML dumps of all pages of Wikipedia for a certain language (e.g., Table 1 contains results for the Wikipedia entries of \emph{rumantsch}, a romance language dialect spoken in Switzerland, for which the number of articles was reasonable enough to ensure the memory would be sufficient when running the algorithms - around 6000 articles) and to crawling and indexing these pages.
 \vspace{10pt}
 
-The architecture and algorithms used for indexing were inspired by the ones presented in \cite{1}:
+The architecture and algorithms used for indexing were inspired by the ones presented in \cite{Brin98}:
 
 \begin{itemize}
 \item \textbf{Parsing}: in our file system, which contains the web pages, we parse each page, in order to construct the two structures indispensable to computing the PageRank: the \emph{inverted index} and the \emph{pointsTo} table - a table containing all the hyperlinks between pages (the PageRank formula is based on this graph-like vision of the web pages, in which a hyperlink from page A to page B is viewed as a "vote of trust" of sorts for page B)
@@ -111,7 +115,7 @@ At the end of the parsing phase, we create both the graph of hyperlinks which wi
 
 The IR (integrated reasoning) score is determined by the emphasis and weighted position of the specific terms used in a document, then used to compute the \emph{actual relevance} of each page in order to provide pages that are relevant to the terms of a specific search. This \emph{'actual relevance'} is computed by multiplying the IR score of each page to its PageRank value, to give a divisive value for how important each page is (we use multiplication because using addition would result in pages that are unrelated to the search terms ending up with a higher ranking in the search results returned from the query).
 
-For now, the IR score we compute is a straightforward (and maybe simplistic) formula: if the search word appears in a document's title, its IR score is 2$*$n, else its IR score is simply n, where n denotes the number of occurences of the search word in the document.
+For now, the IR score we compute is a straightforward (and maybe simplistic) formula: if the search word appears in a document's title, its IR score is $2 \times n$, else its IR score is simply $n$, where $n$ denotes the number of occurrences of the search word in the document.
 
 \subsection{Searching}
 
@@ -120,12 +124,11 @@ For simplicity purposes, we limited our search (for the time being, at least), t
 \item  Look up the query word in the inverted index and retrieve the corresponding document list
 \item Based on the information contained in the inverted index, compute the IR score for each document 
 \item For each document, combine its IR score and its PageRank in order to give the document a final rank
-\item Sort documents and return first \emph{k} 
+\item Sort documents and return first $k$ 
 \end{enumerate}
 
 
-
-
+% Algorithms %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Algorithms}
 
@@ -181,6 +184,7 @@ $pr\leftarrow\frac{pr}{|pr|}$\;
 \end{algorithm}
 \DecMargin{1em}
 
+
 \subsection{Algebraic method}
 \IncMargin{1em}
 \begin{algorithm}[H]
@@ -212,7 +216,6 @@ Additional notations have been used to describe the algebraic method, for a give
 \item $I$ denotes the identity matrix of size $n$
 \item $O$ denotes the column vector of length $n$ containing only ones
 \end{itemize}
-
 
 
 \subsection{Power method}
@@ -251,6 +254,9 @@ $pr\left[i\right] \leftarrow pr\left[i\right] + \frac{1-s}{n}$\;
 \caption{Power method}\label{algo_power_method}
 \end{algorithm}
 \DecMargin{1em}
+
+
+% Results %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Results}
 
@@ -337,6 +343,8 @@ Rank & Google Rank & Name \\ \hline
 \end{table}
 
 
+% Problems and solutions %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Problems and solutions}
 
 The first main problem encountered when dealing with the implementation of a search engine is the data fetching. Initially the designed architecture contained a \emph{web crawler}, a software application that browsed systematically the HTML pages over the Internet, however efficient crawling is hard.
@@ -362,6 +370,8 @@ The memory problem affects both the input data and the internal data. The diffic
 The conclusion is the same as the previous problem.
 
 
+% Conclusion %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \section{Conclusion}
 
 Eventually a little search engine which works on a set of HTML pages using the PageRank algorithm has been implemented with success. Despite some inherent difficulties about memory, the project has succeeded to apprehend the effect of the damping factor. It also shows  the sensitivity of a search engine depending on its implementation.
@@ -371,6 +381,50 @@ As the results show,  when using a simplistic approach to compute the IR score o
 When comparing our results to the Google engine one, the difference is noteworthy. This might be due to the fact that since the most recent downloadable version of the database is several years old; since then, many articles have been added, thus changing the structure.
 
 Further work could include more complicated and refined computations of IR and a better database  in order to analyse improvement in the results.
+
+
+% References %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{References}
+
+\begin{thebibliography}{1}
+  \bibitem{Witten94}
+    I. Witten, A. Moffat, and T. Bell\\
+    \textbf{Managing Gigabytes: Compressing and Indexing Documents and Images}\\
+    \emph{Van Nostrand Reinhold, 1994}
+  \bibitem{Brin98}
+    S. Brin, and L. Page\\
+    \textbf{The Anatomy of a Large-Scale Hypertextual Web Search Engine}\\
+    \emph{Computer Networks and ISDN Systems, 1998}
+  \bibitem{Cho98}
+    J. Cho, H. Garcia-Molina, and L. Page\\
+    \textbf{Efficient Crawling Through URL Ordering}\\
+    \emph{7th International Web Conference, 1998}
+  \bibitem{Page98}
+    L. Page, S. Brin, R. Motwani, and T. Winograd\\
+    \textbf{The PageRank Citation Ranking: Bringing Order to the Web}\\
+    \emph{Technical Report, 1999}
+  \bibitem{Haveliwala99}
+    	T. Haveliwala\\
+    	\textbf{Efficient Computation of PageRank}\\
+    	\emph{Technical Report, 1999}
+  \bibitem{Richardson02}
+    	M. Richardson, and P. Domingos\\
+    	\textbf{The Intelligent Surfer: Probabilistic Combination of Link and Content Information in PageRank}\\
+    	\emph{Advances in Neural Information Processing Systems 14, 2002}
+  \bibitem{Haveliwala03}
+    T. Haveliwala, S. Kamvar, and G. Jeh\\
+    	\textbf{An Analytical Comparison of Approaches to Personalizing PageRank}\\
+    \emph{Technical Report, 2003}
+  \bibitem{Berkhin05}
+    P. Berkhin\\
+    \textbf{A Survey on PageRank Computing}\\
+  	  \emph{Internet Mathematics, 2005}
+  \bibitem{Bianchini05}
+    M. Bianchini, M. Gori, and F. Scarselli\\
+    \textbf{Inside PageRank}\\
+    \emph{Transactions on Internet Technologies, 2005}
+\end{thebibliography}
 
 
 \end{document}
