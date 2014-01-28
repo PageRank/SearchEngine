@@ -6,11 +6,14 @@
 \usepackage{amsmath}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{amsthm}
 
 \useinnertheme{circles}
 \useoutertheme{default}
 \usecolortheme{orchid}
 \setbeamertemplate{navigation symbols}{}
+
+\newtheorem{theo}{Theorem}
 
 
 
@@ -155,6 +158,18 @@ $pr\leftarrow \left(dA-I\right)^{-1}\frac{1-d}{n}O$
 \BlankLine
 \end{algorithm}
 \DecMargin{1em}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Perron-Frobenius theorem}
+  \begin{theo}
+    Let $T$ be a $n \times n$ positive and primitive matrix. Then there is an eigenvalue $r$ such that:
+    \begin{itemize}
+      \item $r \in R^*_+$
+      \item there exists a right eigenvector (resp. left eigenvector) of $T$ with eigenvalue $r$ such that all components of $v$ are positive
+      \item $r > \| \lambda \|$ for any other eigenvalue $\lambda$
+    \end{itemize}
+  \end{theo}
 \end{frame}
 
 \begin{frame}
